@@ -25,7 +25,8 @@ export default function App() {
         {
          users.map((user)=>{
             return <CardUser
-              key={user.id} 
+              key={user.id}
+              id={user.id} 
               name={user.name}
               email={user.email}
               avatar={user.avatar}

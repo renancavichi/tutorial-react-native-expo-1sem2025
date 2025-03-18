@@ -1,7 +1,16 @@
 import { Image } from "expo-image";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Pressable } from "react-native";
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
-export default function CardUser({avatar, name, email}) {
+export default function CardUser({id, avatar, name, email}) {
+
+    const deleteUser = async () => {
+        const result = await fetch(`http://localhost:3000/user/${id}`, {
+            method: 'DELETE'
+        })
+        const data = await result.json()
+        console.log(data)
+    }
 
     return (
         <View style={styles.card}>
@@ -13,6 +22,9 @@ export default function CardUser({avatar, name, email}) {
                 <Text style={styles.name}>{name}</Text>
                 <Text style={styles.email}>{email}</Text>
             </View>
+            <Pressable style={styles.trash} onPress={deleteUser}>
+                <FontAwesome name="trash-o" size={24} color="black" />
+            </Pressable>
         </View>
     )
 }
@@ -45,5 +57,10 @@ const styles = StyleSheet.create({
     },
     email: {
         color: '#999'
+    },
+    trash: {
+        position: 'absolute',
+        right: 10,
+        top: 10
     }
 })
