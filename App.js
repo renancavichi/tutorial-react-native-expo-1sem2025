@@ -1,20 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, ScrollView, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, ScrollView, Button, TextInput, View } from 'react-native';
 import Header from './src/components/Header';
 import { useState } from 'react';
+import CardUser from './src/components/CardUser';
 
 export default function App() {
-
-  const [nome, setNome] = useState('Paulo')
-
-  console.log('renderizou o componente App')
 
   return (
     <ScrollView style={styles.container}>
       <Header />
-      <Text>{nome}</Text>
-      <TextInput style={styles.input} placeholder="Digite seu nome" value={nome} onChangeText={setNome} />
-      <StatusBar style="auto" />
+      <View style={styles.listUser}>
+        <CardUser 
+          avatar="https://github.com/renancavichi.png"
+          name="Renan Cavichi"
+          email="renancavichi@gmail.com"
+        />
+        <CardUser 
+          avatar="https://github.com/jose.png"
+          name="José da Silva"
+          email="joses@gmail.com"
+        />
+        <CardUser 
+          avatar="https://github.com/maria.png"
+          name="Maria Souza"
+          email="mariasouza@gmail.com"
+        />
+      </View> 
     </ScrollView>
   );
 }
@@ -24,17 +35,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#DDDDDD',
   },
-  products: {
-    flexDirection: 'row',
-    gap: 20,
-    padding: 20,
-    flexWrap: 'wrap'
-  },
   input: {
     borderWidth: 1,
     borderColor: '#CCC',
     backgroundColor: '#FFF',
     padding: 10,
     margin: 10
+  },
+  listUser: {
+    gap: 20,
+    marginVertical: 20,
+    alignItems: 'center', 
   }
 });
