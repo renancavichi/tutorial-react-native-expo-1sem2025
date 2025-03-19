@@ -13,6 +13,10 @@ export default function CardUser({id, avatar, name, email, users, setUsers, setU
         setUsers(users.filter((user) => user.id !== id))
     }
 
+    const editUser = async () => {
+        setUserToEdit(id)
+    }
+
     return (
         <View style={styles.card}>
             <Image 
@@ -26,7 +30,7 @@ export default function CardUser({id, avatar, name, email, users, setUsers, setU
             <Pressable style={styles.trash} onPress={deleteUser}>
                 <FontAwesome name="trash-o" size={24} color="black" />
             </Pressable>
-            <Pressable style={styles.edit} onPress={() => setUserToEdit(id)}>
+            <Pressable style={styles.edit} onPress={editUser}>
                 <FontAwesome name="edit" size={24} color="black" />
             </Pressable>
         </View>

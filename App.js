@@ -25,9 +25,11 @@ export default function App() {
     fetchUsers()
   }, [])
 
+  //muda o usuário a ser editado
   useEffect(() => {
+    console.log('userToEdit', userToEdit)
     if(userToEdit !== null) {
-      const user = users.find((user) => user.id === userToEdit.id)  
+      const user = users.find((user) => user.id === userToEdit)  
       setName(user.name)
       setEmail(user.email)
       setPass(user.pass)
