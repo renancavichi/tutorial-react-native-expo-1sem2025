@@ -59,6 +59,34 @@ export default function App() {
     setAvatar('')
   }
 
+  const handleEditUser = async () => {
+    const result = await fetch(`http://localhost:3000/user/${userToEdit}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        pass,
+        avatar
+      })
+    })
+    const data = await result.json()
+    console.log(data)
+    const usersEdited = users.map((user) => {
+      if(user.id === userToEdit) {
+        return data.user
+      }
+      return user
+    })
+    setUsers(usersEdited)
+    setName('')
+    setEmail('')
+    setPass('')
+    setAvatar('')
+  }
+
   return (
     <ScrollView style={styles.container}>
       <Header />
@@ -86,7 +114,7 @@ export default function App() {
         <TextInput style={styles.input} placeholder="Avatar" value={avatar} onChangeText={setAvatar} />
         <View style={styles.boxButtons}>
             <Button title="Cadastrar" onPress={handleCreateUser} />
-            <Button title="Editar" onPress={() => {}} />    
+            <Button title="Editar" onPress={handleEditUser} />    
         </View>
       </View> 
     </ScrollView>
