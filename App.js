@@ -81,6 +81,7 @@ export default function App() {
       return user
     })
     setUsers(usersEdited)
+    setUserToEdit(null)
     setName('')
     setEmail('')
     setPass('')
