@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, ScrollView, Button, TextInput, View } from 'react-native';
 import Header from './src/components/Header';
-import { useState, useEffect, use } from 'react';
+import { useState, useEffect } from 'react';
 import CardUser from './src/components/CardUser';
 
 export default function App() {
@@ -117,7 +117,8 @@ export default function App() {
             <Button title="Cadastrar" onPress={handleCreateUser} />
             <Button title="Editar" onPress={handleEditUser} />    
         </View>
-      </View> 
+      </View>
+      <StatusBar style="auto" /> 
     </ScrollView>
   );
 }
