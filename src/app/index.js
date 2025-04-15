@@ -110,7 +110,9 @@ export default function HomeScreen() {
          })
         }
       </View>
+      {/* Exemplo navegação com Link */}
       <Link href='/create'><Text style={styles.h1}>Ir para Criar Usuário</Text></Link>
+      {/* Exemplo navegação com router (criado com o hook useRouter) */}
       <Button title='Criar Usuário' onPress={() => router.push('/create')} />
 
       <View>
