@@ -3,6 +3,7 @@
     "name": "tutorial-react-native-expo",
     "slug": "tutorial-react-native-expo",
     "version": "1.0.0",
+    "schema": "tutorial-react-native-expo",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -22,7 +23,11 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    }
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router"
+    ]
   }
 }

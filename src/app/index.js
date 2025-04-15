@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, ScrollView, Button, TextInput, View } from 'react-native';
-import Header from './src/components/Header';
+import Header from '../components/Header';
 import { useState, useEffect } from 'react';
-import CardUser from './src/components/CardUser';
+import CardUser from '../components/CardUser';
+import { Link, useRouter } from 'expo-router';
 
-export default function App() {
+export default function HomeScreen() {
 
   const [users, setUsers] = useState([])
 
@@ -14,6 +15,8 @@ export default function App() {
   const [avatar, setAvatar] = useState('')
 
   const [userToEdit, setUserToEdit] = useState(null)
+
+  const router = useRouter()
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -107,6 +110,9 @@ export default function App() {
          })
         }
       </View>
+      <Link href='/create'><Text style={styles.h1}>Ir para Criar Usuário</Text></Link>
+      <Button title='Criar Usuário' onPress={() => router.push('/create')} />
+
       <View>
         <Text style={styles.h1}>Cadastrar</Text>
         <TextInput style={styles.input} placeholder="Nome" value={name} onChangeText={setName} />
