@@ -115,6 +115,8 @@ export default function HomeScreen() {
       {/* Exemplo navegação com router (criado com o hook useRouter) */}
       <Button style={styles.button} title='Criar Usuário' onPress={() => router.push('/create')} />
 
+      <Button style={styles.button} title='Ir para Home' onPress={() => router.push('/home')} />
+
       <View>
         <Text style={styles.h1}>Cadastrar</Text>
         <TextInput style={styles.input} placeholder="Nome" value={name} onChangeText={setName} />
