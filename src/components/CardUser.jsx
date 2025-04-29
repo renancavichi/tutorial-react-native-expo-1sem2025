@@ -1,20 +1,33 @@
 import { Image } from "expo-image";
-import { View, StyleSheet, Text, Pressable } from "react-native";
+import { View, StyleSheet, Text, Pressable, Alert } from "react-native";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { useUsersStore } from "../stores/useUsersStore"
+import { useRouter } from "expo-router";
 
-export default function CardUser({id, avatar, name, email, users, setUsers, setUserToEdit}) {
+export default function CardUser({id, avatar, name, email}) {
+
+    const { deleteUser: deleteUserStore, setUserToEditId  } = useUsersStore()
+    const router = useRouter()
 
     const deleteUser = async () => {
         const result = await fetch(`http://localhost:3000/user/${id}`, {
             method: 'DELETE'
         })
-        const data = await result.json()
-        console.log(data)
-        setUsers(users.filter((user) => user.id !== id))
+        if(result.ok) {
+            const data = await result.json()
+            console.log(data)
+            deleteUserStore(id)
+        } else {
+            const error = await result?.json()
+            console.log('Erro ao deletar usuário', error?.message)
+            Alert.alert('Erro ao deletar usuário', error?.message || '')
+        }
+        
     }
 
     const editUser = async () => {
-        setUserToEdit(id)
+        setUserToEditId(id)
+        router.push('/edit')
     }
 
     return (

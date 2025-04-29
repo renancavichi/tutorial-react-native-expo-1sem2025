@@ -4,10 +4,11 @@ import Header from '../components/Header';
 import { useState, useEffect } from 'react';
 import CardUser from '../components/CardUser';
 import { Link, useRouter } from 'expo-router';
+import { useUsersStore } from '../stores/useUsersStore';
 
 export default function HomeScreen() {
 
-  const [users, setUsers] = useState([])
+  const { users, setUsers } = useUsersStore()
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
