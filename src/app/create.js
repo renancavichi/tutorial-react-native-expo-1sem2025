@@ -15,7 +15,7 @@ export default function createScreen() {
       const router = useRouter()
 
       const handleCreateUser = async () => {
-        const result = await fetch('http://localhost:3000/user', {
+        const result = await fetch('http://localhost:3000/auth/signup', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -42,9 +42,6 @@ export default function createScreen() {
 
   return (
     <View style={styles.container}>
-        <Text style={styles.title}>Criar Usuário</Text>
-        <Link href='/'>Ir para Home</Link>
-
         <View>
             <Text style={styles.h1}>Cadastrar</Text>
             <TextInput style={styles.input} placeholder="Nome" value={name} onChangeText={setName} />
