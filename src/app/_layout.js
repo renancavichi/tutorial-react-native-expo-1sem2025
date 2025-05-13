@@ -13,7 +13,7 @@ export default function RootLayout() {
         },
       }}>
       <Stack.Screen name="index" options={{headerShown: false}} />
-      <Stack.Screen name="login" options={{title: "Entrar"}} />
+      <Stack.Screen name="login" options={{headerShown: false}} />
       <Stack.Screen name="create" options={{title: "Criar Usuário"}} />
       <Stack.Screen name="edit" options={{title: "Editar Usuário"}} />
       <Stack.Screen name="(tabs)" options={{title: "Tabs", headerShown: false}} />

@@ -1,32 +1,45 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, Button, View, TextInput } from 'react-native';
-import { useEffect } from 'react';
+import { StyleSheet, Text, Button, View, TextInput, Alert } from 'react-native';
+import { useState } from 'react';
 import { useRouter } from 'expo-router';
-import { useUsersStore } from '../stores/useUsersStore';
+import { useAuthStore } from '../stores/useAuthStore';
 
-export default function HomeScreen() {
+export default function LoginScreen() {
 
-  const { users, setUsers } = useUsersStore()
+  const [email, setEmail] = useState('')
+  const [pass, setPass] = useState('')
   const router = useRouter()
+  const { login } = useAuthStore()
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const result = await fetch('http://localhost:3000/user/list')
+  const handleLogin = async () => {
+    console.log('Login', email, pass)
+    const result = await fetch('http://localhost:3000/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, pass })
+    })
+    if(result.ok) {
       const data = await result.json()
       console.log(data)
-      setUsers(data)
+      login(data) // Aqui você pode armazenar o token em um estado global e AsyncStorage
+      return router.push('/home')// redirecionar para a tela home do user logado
+    } else {
+      console.log('Erro ao logar usuário')
+      const error = await result?.json()
+      Alert.alert('Erro ao logar usuário', error?.message || '')
     }
-    fetchUsers()
-  }, [])
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.h1}>Entrar no Projeto</Text>
 
-      <TextInput style={styles.input} placeholder='E-mail' />
-      <TextInput style={styles.input} placeholder='Senha' secureTextEntry={true} />
+      <TextInput style={styles.input} value={email} onChangeText={setEmail} placeholder='E-mail' />
+      <TextInput style={styles.input} value={pass} onChangeText={setPass} placeholder='Senha' secureTextEntry={true} />
 
-      <Button title='Entrar' onPress={() => {}} />
+      <Button title='Entrar' onPress={() => handleLogin()} />
 
       <Text style={styles.p}>Não tem conta?</Text>
       <Button title='Cadastra-se' onPress={() => router.push('/create')} />
