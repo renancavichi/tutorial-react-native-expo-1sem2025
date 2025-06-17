@@ -28,6 +28,12 @@
     - Qual comando para rodar o projeto no modo dev?
         - npm start 
 
-
  - Framework? 
 
+### Requisitos Projeto Final (Mobile)
+    - Componentes Básicos: View, Text, TextInput
+    - Criação de Componentes
+    - CRUD
+    - Utilizar Navegação (Telas)
+    - Utilizar os Hooks useState e useEffect
+    - Zustand
