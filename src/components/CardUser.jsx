@@ -3,15 +3,21 @@ import { View, StyleSheet, Text, Pressable, Alert } from "react-native";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useUsersStore } from "../stores/useUsersStore"
 import { useRouter } from "expo-router";
+import { useAuthStore } from "../stores/useAuthStore";
 
 export default function CardUser({id, avatar, name, email}) {
 
     const { deleteUser: deleteUserStore, setUserToEditId  } = useUsersStore()
+    const {accessToken, id: idUserLogged } = useAuthStore()
     const router = useRouter()
 
     const deleteUser = async () => {
         const result = await fetch(`http://localhost:3000/user/${id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
+            }
         })
         if(result.ok) {
             const data = await result.json()
@@ -40,12 +46,16 @@ export default function CardUser({id, avatar, name, email}) {
                 <Text style={styles.name}>{name}</Text>
                 <Text style={styles.email}>{email}</Text>
             </View>
-            <Pressable style={styles.trash} onPress={deleteUser}>
-                <FontAwesome name="trash-o" size={24} color="black" />
-            </Pressable>
-            <Pressable style={styles.edit} onPress={editUser}>
-                <FontAwesome name="edit" size={24} color="black" />
-            </Pressable>
+            {id === idUserLogged && (
+                <>
+                    <Pressable style={styles.trash} onPress={deleteUser}>
+                        <FontAwesome name="trash-o" size={24} color="black" />
+                    </Pressable>
+                    <Pressable style={styles.edit} onPress={editUser}>
+                        <FontAwesome name="edit" size={24} color="black" />
+                    </Pressable>
+                </>
+            )}
         </View>
     )
 }

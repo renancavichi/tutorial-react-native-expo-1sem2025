@@ -2,10 +2,12 @@ import {View, Text, StyleSheet, TextInput, Button, Alert} from 'react-native'
 import { Link, useRouter } from 'expo-router'
 import { useState } from 'react'
 import { useUsersStore } from '../stores/useUsersStore'
+import { useAuthStore } from '../stores/useAuthStore'
 
 export default function EditScreen() {
 
       const { userToEditId, users, updateUser } = useUsersStore()
+      const { accessToken } = useAuthStore()
 
       const [ userToEdit ] = users.filter((user) => user.id === userToEditId)
       console.log('userToEditId', userToEditId)
@@ -22,7 +24,8 @@ export default function EditScreen() {
         const result = await fetch(`http://localhost:3000/user/${userToEditId}`, {
           method: 'PUT',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
           },
           body: JSON.stringify({
             name,
